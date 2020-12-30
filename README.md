@@ -3,6 +3,10 @@
 
 > 该项目是一个简单的个人博客系统项目，前端使用了vue ，后端springboot。
 
+后端项目：https://github.com/zhaoguoshun/Lyu-blog
+
+前端项目：https://github.com/zhaoguoshun/LyuBlog-vue
+
 预览地址： http://zhaoguoshun.cn/
 
 #### 技术栈
