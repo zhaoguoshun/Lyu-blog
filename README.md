@@ -23,15 +23,15 @@
 
 后台管理页面
 
-![image-20201230202539346](C:\Users\guosz\AppData\Roaming\Typora\typora-user-images\image-20201230202539346.png)
+![image-20201230202539346](http://shunxinblog.oss-cn-hangzhou.aliyuncs.com/2020/12/30/753b7d1fc4a54e6ea5e4752645a88fa7.png)
 
 
 
 前台页面
 
-![image-20201230202642611](C:\Users\guosz\AppData\Roaming\Typora\typora-user-images\image-20201230202642611.png)
+![image-20201230202642611](http://shunxinblog.oss-cn-hangzhou.aliyuncs.com/2020/12/30/f758f0e4537b456cbfae8abf348560c6.png)
 
-![image-20201230202713534](C:\Users\guosz\AppData\Roaming\Typora\typora-user-images\image-20201230202713534.png)
+![image-20201230202713534](http://shunxinblog.oss-cn-hangzhou.aliyuncs.com/2020/12/30/04c313cce2d547a29633042845e3ea35.png)
 
 
 
