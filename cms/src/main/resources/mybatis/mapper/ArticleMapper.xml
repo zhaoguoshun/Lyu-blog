@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhaoguoshun.mapper.ArticleMapper">
+    <resultMap type="Article" id="Article">
+        <id column="id" property="id"/>
+        <result column="channel_id"  property="channelId"/>
+        <result column="title"  property="title"/>
+        <result column="title_img"  property="titleImg"/>
+        <result column="summary"  property="summary"/>
+        <result column="url"  property="url"/>
+        <result column="content"  property="content"/>
+        <result column="status"  property="status"/>
+        <result column="comment_status"  property="commentStatus"/>
+        <result column="rotation"  property="rotation"/>
+        <result column="top"  property="top"/>
+        <result column="orderby"  property="orderby"/>
+        <result column="create_date"  property="createDate"/>
+        <result column="create_user"  property="createUser"/>
+        <result column="update_date"  property="updateDate"/>
+        <result column="article_view"  property="articleView"/>
+    </resultMap>
+
+    <insert id="create" keyProperty="id" useGeneratedKeys="true" parameterType="Article">
+		insert into tb_article(
+			channel_id,
+			title,
+			title_img,
+			summary,
+			url,
+			content,
+			status,
+			comment_status,
+			rotation,
+			top,
+			orderby,
+			create_date,
+			create_user,
+			update_date,
+			article_view
+		)values(
+			#{channelId},
+			#{title},
+			#{titleImg},
+			#{summary},
+			#{url},
+			#{content},
+			#{status},
+			#{commentStatus},
+			#{rotation},
+			#{top},
+			#{orderby},
+			now(),
+			#{createUser},
+			now(),
+			#{articleView}
+		)
+	</insert>
+
+    <select id="query" resultMap="Article">
+    select * from tb_article
+    <include refid="ArticleFindCriteria"/>
+    order by id desc
+</select>
+
+    <select id="voQuery" resultMap="Article">
+        select * from tb_article
+        <include refid="ArticleFindCriteria"/>
+        order by id desc
+    </select>
+
+    <select id="olderBy" resultMap="Article">
+        select * from tb_article
+        <include refid="ArticleFindCriteria"/>
+        order by article_view desc
+        limit 8
+    </select>
+
+    <select id="getRandomArticle" resultMap="Article">
+        SELECT * FROM `tb_article` ORDER BY RAND() LIMIT 2
+    </select>
+
+
+    <select id="ArticlePosQuery" resultMap="Article">
+        select * from tb_article
+        <include refid="ArticleFindCriteria"/>
+        order by id desc
+        limit 5
+    </select>
+
+    <select id="getNotice" resultMap="Article">
+        select * from tb_article
+        <include refid="ArticleFindCriteria"/>
+        order by id desc
+        limit 4
+    </select>
+
+
+    <select id="count" resultType="int">
+        select count(1) from tb_article
+        <include refid="ArticleFindCriteria"/>
+    </select>
+
+    <select id="detail" resultMap="Article">
+        select * from tb_article
+        <include refid="ArticleFindCriteria"/>
+        limit 1
+    </select>
+
+    <delete id="delete">
+        delete from tb_article
+        <include refid="ArticleFindCriteria" />
+    </delete>
+    <update id="update">
+        update tb_article
+        <include refid="ArticleUpdateCriteria"/>
+        <include refid="ArticleFindCriteria"/>
+    </update>
+
+    <update id="updateView" parameterType="Article">
+        update tb_article set article_view=#{articleView} where id=#{id}
+    </update>
+
+    <sql id="ArticleFindCriteria">
+        <where>
+            <if test="id != null">and id = #{id}</if>
+            <if test="channelId != null">and channel_id = #{channelId}</if>
+            <if test="title != null and title != ''">and title like concat('%',#{title},'%')</if>
+            <if test="titleImg != null and titleImg != ''">and title_img = #{titleImg}</if>
+            <if test="summary != null and summary != ''">and summary = #{summary}</if>
+            <if test="url != null and url != ''">and url = #{url}</if>
+            <if test="content != null and content != ''">and content = #{content}</if>
+            <if test="status != null">and status = #{status}</if>
+            <if test="commentStatus != null">and comment_status = #{commentStatus}</if>
+            <if test="rotation != null">and rotation = #{rotation}</if>
+            <if test="top != null">and top = #{top}</if>
+            <if test="orderby != null">and orderby = #{orderby}</if>
+            <if test="createUser != null">and create_user = #{createUser}</if>
+        </where>
+    </sql>
+    <sql id="ArticleUpdateCriteria">
+        <set>
+            <if test="updateChannelId != null">channel_id = #{updateChannelId},</if>
+            <if test="updateTitle != null and updateTitle != ''">title = #{updateTitle},</if>
+            <if test="updateTitleImg != null and updateTitleImg != ''">title_img = #{updateTitleImg},</if>
+            <if test="updateSummary != null and updateSummary != ''">summary = #{updateSummary},</if>
+            <if test="updateUrl != null and updateUrl != ''">url = #{updateUrl},</if>
+            <if test="updateContent != null and updateContent != ''">content = #{updateContent},</if>
+            <if test="updateStatus != null">status = #{updateStatus},</if>
+            <if test="updateCommentStatus != null">comment_status = #{updateCommentStatus},</if>
+            <if test="updateRotation != null">rotation = #{updateRotation},</if>
+            <if test="updateTop != null">top = #{updateTop},</if>
+            <if test="updateOrderby != null">orderby = #{updateOrderby},</if>
+            <if test="updateCreateDate != null">create_date = #{updateCreateDate},</if>
+            <if test="updateCreateUser != null">create_user = #{updateCreateUser},</if>
+            <if test="updateUpdateDate != null">update_date = #{updateUpdateDate},</if>
+            <if test="updateArticleView != null">article_view = #{updateArticleView},</if>
+        </set>
+    </sql>
+
+    <!-- 查询直接之栏目文章或间接之栏目文章 -->
+    <select id="queryByChannelId" resultMap="Article" parameterType="int">
+        select * from tb_article where channel_id in(
+        select id from tb_channel
+        <where>
+            <if test="channelId != null">id = #{channelId} or parent_id = #{channelId}</if>
+        </where>
+        ) order by id desc
+    </select>
+
+</mapper>

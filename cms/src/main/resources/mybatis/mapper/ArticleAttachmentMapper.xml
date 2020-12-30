@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhaoguoshun.mapper.ArticleAttachmentMapper">
+
+    <resultMap type="ArticleAttachment" id="ArticleAttachment">
+        <id column="id" property="id"/>
+        <result column="article_id"  property="articleId"/>
+        <result column="url"  property="url"/>
+        <result column="description"  property="description"/>
+        <result column="suffix"  property="suffix"/>
+    </resultMap>
+
+    <insert id="create" keyProperty="id" useGeneratedKeys="true" parameterType="ArticleAttachment">
+		insert into tb_article_attachment(
+			article_id,
+			url,
+			description,
+			suffix
+		)values(
+			#{articleId},
+			#{url},
+			#{description},
+			#{suffix}
+		)
+	</insert>
+
+    <select id="query" resultMap="ArticleAttachment">
+        select * from tb_article_attachment
+        <include refid="ArticleAttachmentFindCriteria"/>
+    </select>
+
+    <select id="count" resultType="int">
+        select count(1) from tb_article_attachment
+        <include refid="ArticleAttachmentFindCriteria"/>
+    </select>
+
+    <select id="detail" resultMap="ArticleAttachment">
+        select * from tb_article_attachment
+        <include refid="ArticleAttachmentFindCriteria"/>
+        limit 1
+    </select>
+
+    <delete id="delete">
+        delete from tb_article_attachment
+        <include refid="ArticleAttachmentFindCriteria" />
+    </delete>
+    <update id="update">
+        update tb_article_attachment
+        <include refid="ArticleAttachmentUpdateCriteria"/>
+        <include refid="ArticleAttachmentFindCriteria"/>
+    </update>
+
+    <sql id="ArticleAttachmentFindCriteria">
+        <where>
+            <if test="id != null">and id = #{id}</if>
+            <if test="articleId != null">and article_id = #{articleId}</if>
+            <if test="url != null and url != ''">and url = #{url}</if>
+            <if test="description != null and description != ''">and description = #{description}</if>
+            <if test="suffix != null and suffix != ''">and suffix = #{suffix}</if>
+        </where>
+    </sql>
+    <sql id="ArticleAttachmentUpdateCriteria">
+        <set>
+            <if test="updateArticleId != null">article_id = #{updateArticleId},</if>
+            <if test="updateUrl != null and updateUrl != ''">url = #{updateUrl},</if>
+            <if test="updateDescription != null and updateDescription != ''">description = #{updateDescription},</if>
+            <if test="updateSuffix != null and updateSuffix != ''">suffix = #{updateSuffix},</if>
+        </set>
+    </sql>
+
+</mapper>

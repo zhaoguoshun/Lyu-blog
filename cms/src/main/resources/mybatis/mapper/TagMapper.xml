@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhaoguoshun.mapper.TagMapper">
+
+
+    <resultMap id="Tag" type="Tag">
+        <id column="id" property="id"/>
+        <result column="tag_name" property="tagName"/>
+    </resultMap>
+
+
+    <insert id="create" parameterType="Tag">
+        insert into tb_tag (tag_name)
+        values (#{tagName});
+    </insert>
+
+    <delete id="delete">
+        delete from tb_tag
+        <include refid="TagFindCriteria"/>
+
+    </delete>
+    <sql id="TagFindCriteria">
+        <where>
+            <if test="id !=null">and id=#{id}</if>
+            <if test="tagName !=null and tagName!=''">and tag_name  like concat('%',#{tagName},'%')</if>
+        </where>
+    </sql>
+
+    <sql id="TagUpdateFindCriteria">
+        <set>
+            <if test="updateTagName !=null and updateTagName!=''"> tag_name =#{updateTagName},</if>
+        </set>
+    </sql>
+    <update id="update">
+        update tb_tag
+        <include refid="TagUpdateFindCriteria"/>
+        <include refid="TagFindCriteria"/>
+    </update>
+
+    <select id="query" resultMap="Tag">
+        select  * from tb_tag
+        <include refid="TagFindCriteria"/>
+    </select>
+
+    <select id="detail" resultMap="Tag">
+        select * from tb_tag
+        <include refid="TagFindCriteria"></include>
+        limit 1
+    </select>
+
+    <select id="count" resultType="int">
+        select  count(1) from tb_tag
+        <include refid="TagFindCriteria"/>
+    </select>
+</mapper>

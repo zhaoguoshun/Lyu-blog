@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhaoguoshun.mapper.UserMapper">
+
+    <resultMap id="User" type="User">
+        <id column="id" property="id"/>
+        <result column="user_name" property="userName"/>
+        <result column="password" property="password"/>
+        <result column="nick_name" property="nickName"/>
+        <result column="email" property="email"/>
+        <result column="avatar" property="avatar"/>
+        <result column="create_date" property="createDate"/>
+        <result column="status" property="status"/>
+    </resultMap>
+
+    <insert id="create" parameterType="User">
+        insert into tb_user (user_name,password,nick_name,email,avatar,create_date,status)
+        values (#{userName},#{password},#{nickName},#{email},#{avatar},now(),#{status});
+    </insert>
+
+    <delete id="delete">
+        delete from tb_user
+        <include refid="UserFindCriteria"/>
+
+    </delete>
+    <sql id="UserFindCriteria">
+        <where>
+            <if test="id !=null">and id=#{id}</if>
+            <if test="userName !=null and userName!=''">and user_name  like concat('%',#{userName},'%')</if>
+            <if test="password !=null and password!=''"> and password =#{password}</if>
+            <if test="nickName !=null and nickName!=''">and nick_name like concat('%',#{nickName},'%')</if>
+            <if test="email !=null and email!=''">and email =#{email}</if>
+        </where>
+    </sql>
+
+    <sql id="UserUpdateFindCriteria">
+        <set>
+            <if test="updateUserName !=null and updateUserName!=''"> user_name =#{updateUserName},</if>
+            <if test="updatePassword !=null and updatePassword!=''">  password =#{updatePassword},</if>
+            <if test="updateNickName !=null and updateNickName!=''"> nick_name =#{updateNickName},</if>
+            <if test="updateStatus !=null and updateStatus!=''"> status =#{updateStatus},</if>
+            <if test="updateAvatar != null and updateAvatar != ''">avatar = #{updateAvatar},</if>
+            <if test="updateEmail !=null and updateEmail!=''"> email =#{updateEmail},</if>
+
+        </set>
+    </sql>
+    <update id="update">
+        update tb_user
+        <include refid="UserUpdateFindCriteria"/>
+        <include refid="UserFindCriteria"/>
+    </update>
+
+    <select id="query" resultMap="User">
+        select  * from tb_user
+        <include refid="UserFindCriteria"/>
+    </select>
+
+    <select id="detail" resultMap="User">
+        select * from tb_user
+        <include refid="UserFindCriteria"></include>
+        limit 1
+    </select>
+
+    <select id="count" resultType="int">
+        select  count(1) from tb_user
+        <include refid="UserFindCriteria"/>
+    </select>
+
+</mapper>

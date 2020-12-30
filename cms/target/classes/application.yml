@@ -1,0 +1,28 @@
+server:
+  port: 8081
+  servlet:
+    context-path: /cms
+
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/cms?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: 985211
+  jackson:
+    date-format: yyyy-MM-dd
+    time-zone: Asia/Shanghai
+
+
+logging:
+  level:
+    com:
+      zhaoguoshun:
+        mapper: debug
+
+mybatis:
+  type-aliases-package: com.zhaoguoshun.entity
+  mapper-locations:  classpath:mybatis/mapper/*.xml
+pagehelper:
+  helper-dialect: mysql
