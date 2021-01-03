@@ -59,7 +59,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
                 list.get(i).setStatusName("审核通过");
             }
         }
-        return new PageInfo<Comment> (list);
+        return new PageInfo<> (list);
     }
 
     public List<Comment> getCommentArticle(Comment comment){

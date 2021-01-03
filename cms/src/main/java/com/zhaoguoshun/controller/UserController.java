@@ -69,16 +69,12 @@ public class UserController {
 
     @PostMapping("/upload")
     public Result upload(@RequestParam MultipartFile file, HttpServletRequest request) throws IOException {
-
-        System.out.println("打印一下返回路径=====》"+RequestUtils.getBasePath(request));
-        System.out.println("打印一下返回路径=====》"+RequestUtils.getBasePath(request));
-        System.out.println("打印一下返回路径=====》"+RequestUtils.getBasePath(request));
         String originalFilename = file.getOriginalFilename();
         //获取文件名后缀
         String ex = originalFilename.substring(originalFilename.lastIndexOf(".")+1,originalFilename.length());
         String newFileNamePrefix= UUID.randomUUID().toString();
         String newFileName=newFileNamePrefix+"."+ex;
-        file.transferTo(new File("/upload/cms",newFileName));
+        file.transferTo(new File("D:/upload/cms",newFileName));
 
         System.out.println(RequestUtils.getBasePath(request)+"upload/"+newFileName);
         //最后返回的是一个可以访问的全路径

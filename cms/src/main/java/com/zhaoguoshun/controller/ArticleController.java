@@ -38,7 +38,7 @@ public class ArticleController {
         System.out.println("summary钱"+article.getSummary());
             //文章摘要
         if (StringUtils.isEmpty(article.getSummary())){
-            int summaryLength = 300;
+            int summaryLength = 200;
             String newString = HtmlUtil.cleanHtmlTag(article.getContent());
             //过滤字符串
             String regEx="[\n`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。， 、？]";

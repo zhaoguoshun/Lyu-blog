@@ -35,7 +35,6 @@ public class ChannelController {
     public Result create(@RequestBody Channel channel,HttpServletRequest request){
         User user = (User) request.getAttribute("user");
         channel.setCreateUser(user.getId());
-
         if (channel.getParentId()==null){
             channel.setParentId(0);
         }
@@ -51,15 +50,12 @@ public class ChannelController {
 
     @PostMapping("/update")
     public Result update(@RequestBody  Channel channel){
-        System.out.println("我是update");
-        System.out.println("channel====>"+channel);
         channelServiceImpl.update(channel);
         return Result.ok(channel);
     }
     @PostMapping("/query")
     public Map query(@RequestBody Channel channel){
         PageInfo<Channel> pageInfo = channelServiceImpl.query(channel);
-        System.out.println(pageInfo.getList());
         return Result.ok(pageInfo);
     }
 
@@ -79,7 +75,6 @@ public class ChannelController {
                         Map<String,Object> subMap=new HashMap<>();
                         subMap.put("id",entity.getId());
                         subMap.put("label",entity.getName());
-
                         children.add(subMap);
                     }
                 }
@@ -87,7 +82,6 @@ public class ChannelController {
                 mapList.add(map);
             }
         }
-
         return Result.ok(mapList);
     }
 
@@ -96,7 +90,6 @@ public class ChannelController {
         Channel detail = channelServiceImpl.detail(id);
         return Result.ok(detail);
     }
-
     @PostMapping("/count")
     public Result count(@RequestBody Channel channel){
         int count = channelServiceImpl.count(channel);

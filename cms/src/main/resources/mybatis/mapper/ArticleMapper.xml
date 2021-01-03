@@ -20,6 +20,10 @@
         <result column="article_view"  property="articleView"/>
     </resultMap>
 
+    <sql id="articleSql">
+        id,channel_id,title,title_img,summary,content,create_date,create_user,article_view
+    </sql>
+
     <insert id="create" keyProperty="id" useGeneratedKeys="true" parameterType="Article">
 		insert into tb_article(
 			channel_id,
@@ -57,51 +61,41 @@
 	</insert>
 
     <select id="query" resultMap="Article">
-    select * from tb_article
+    select <include refid="articleSql"/> from tb_article
     <include refid="ArticleFindCriteria"/>
     order by id desc
 </select>
 
-    <select id="voQuery" resultMap="Article">
-        select * from tb_article
-        <include refid="ArticleFindCriteria"/>
-        order by id desc
-    </select>
 
     <select id="olderBy" resultMap="Article">
-        select * from tb_article
+        select id,title from tb_article
         <include refid="ArticleFindCriteria"/>
         order by article_view desc
         limit 8
     </select>
 
     <select id="getRandomArticle" resultMap="Article">
-        SELECT * FROM `tb_article` ORDER BY RAND() LIMIT 2
+        SELECT id,title FROM `tb_article` ORDER BY RAND() LIMIT 2
     </select>
 
 
     <select id="ArticlePosQuery" resultMap="Article">
-        select * from tb_article
+        select id,title from tb_article
         <include refid="ArticleFindCriteria"/>
         order by id desc
         limit 5
     </select>
 
     <select id="getNotice" resultMap="Article">
-        select * from tb_article
+        select id,title from tb_article
         <include refid="ArticleFindCriteria"/>
         order by id desc
         limit 4
     </select>
 
 
-    <select id="count" resultType="int">
-        select count(1) from tb_article
-        <include refid="ArticleFindCriteria"/>
-    </select>
-
     <select id="detail" resultMap="Article">
-        select * from tb_article
+        select <include refid="articleSql"/> from tb_article
         <include refid="ArticleFindCriteria"/>
         limit 1
     </select>
@@ -157,14 +151,14 @@
         </set>
     </sql>
 
-    <!-- 查询直接之栏目文章或间接之栏目文章 -->
-    <select id="queryByChannelId" resultMap="Article" parameterType="int">
-        select * from tb_article where channel_id in(
-        select id from tb_channel
-        <where>
-            <if test="channelId != null">id = #{channelId} or parent_id = #{channelId}</if>
-        </where>
-        ) order by id desc
-    </select>
+<!--    &lt;!&ndash; 查询直接之栏目文章或间接之栏目文章 &ndash;&gt;-->
+<!--    <select id="queryByChannelId" resultMap="Article" parameterType="int">-->
+<!--        select * from tb_article where channel_id in(-->
+<!--        select id from tb_channel-->
+<!--        <where>-->
+<!--            <if test="channelId != null">id = #{channelId} or parent_id = #{channelId}</if>-->
+<!--        </where>-->
+<!--        ) order by id desc-->
+<!--    </select>-->
 
 </mapper>

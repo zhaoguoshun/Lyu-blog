@@ -1,6 +1,5 @@
 package com.zhaoguoshun.service.impl;
 
-import cn.hutool.http.HtmlUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zhaoguoshun.entity.*;
@@ -10,6 +9,7 @@ import com.zhaoguoshun.mapper.ArticleMapper;
 import com.zhaoguoshun.service.ArticleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhaoguoshun.utils.Maps;
+import com.zhaoguoshun.utils.UserNullUtils;
 import com.zhaoguoshun.vo.ArticleVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +31,6 @@ import java.util.Map;
  */
 @Service
 public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> implements ArticleService {
-
-
     @Autowired
     private ArticleMapper articleMapper;
 
@@ -83,7 +81,6 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         int update = articleMapper.update(Maps.build(article.getId()).beanToMapForUpdate(article));
         articleAttachmentMapper.delete(Maps.build().put("articleId",article.getId()).getMap());
         articleTagMapper.delete(Maps.build().put("articleId",article.getId()).getMap());
-
         article.getArticleAttachments().forEach(entity->{
             ArticleAttachment articleAttachment = new ArticleAttachment();
             articleAttachment.setArticleId(article.getId());
@@ -109,16 +106,18 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
             User user = userMapper.detail(Maps.build(article1.getCreateUser()).getMap());
             Channel channel = channelMapper.detail(Maps.build(article1.getChannelId()).getMap());
             article1.setChannel(channel);
-            article1.setUser(user);
+            if (user!=null){
+                article1.setUser(user);
+            }else {
+                article1.setUser(UserNullUtils.userIsNull());
+            }
         }
 
-        return new PageInfo<Article> (list);
+        return new PageInfo<> (list);
     }
 
     public List<Article> orderBy(){
-        Article article = new Article();
-        List<Article> list = articleMapper.olderBy(Maps.build().beanToMap(article));
-        return list;
+        return  articleMapper.olderBy(Maps.build().beanToMap(new Article()));
     }
 
 
@@ -128,7 +127,11 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         List<Article> list = articleMapper.ArticlePosQuery(Maps.build().beanToMap(article));
         for (Article article1 : list) {
             User user = userMapper.detail(Maps.build(article1.getCreateUser()).getMap());
-            article1.setUser(user);
+            if (user!=null){
+                article1.setUser(user);
+            }else {
+                article1.setUser(UserNullUtils.userIsNull());
+            }
         }
         return list;
     }
@@ -142,9 +145,13 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
             User user = userMapper.detail(Maps.build(article1.getCreateUser()).getMap());
             Channel channel = channelMapper.detail(Maps.build(article1.getChannelId()).getMap());
             article1.setChannel(channel);
-            article1.setUser(user);
+            if (user!=null){
+                article1.setUser(user);
+            }else {
+                article1.setUser(UserNullUtils.userIsNull());
+            }
         }
-        return new PageInfo<Article> (list);
+        return new PageInfo<> (list);
     }
 
     public List<Article> getRandomArticle(){
@@ -165,7 +172,11 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
             User user = userMapper.detail(Maps.build(article1.getCreateUser()).getMap());
             Channel channel = channelMapper.detail(Maps.build(article1.getChannelId()).getMap());
             article1.setChannel(channel);
-            article1.setUser(user);
+            if (user!=null) {
+                article1.setUser(user);
+            }else {
+                article1.setUser(UserNullUtils.userIsNull());
+            }
         }
         return list;
     }
@@ -177,7 +188,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         //查找发布人信息
         if (article!=null){
             User user = userMapper.detail(Maps.build(article.getCreateUser()).getMap());
-            article.setUser(user);
+            if (user!=null){
+                article.setUser(user);
+            }
         }
         //查询标签信息
         List<ArticleTag> articleTagList = articleTagMapper.query(Maps.build().put("articleId", id).getMap());
@@ -197,6 +210,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         article.setSelectTagList(tags);
         article.setArticleAttachments(articleAttachmentList);
 
+        //增加视图
         if (a.getFront()){
             Article viewArticle = new Article();
             viewArticle.setArticleView(article.getArticleView()+1);
@@ -227,9 +241,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
 
     public List<Article> getNotice(Article article){
-        List<Article> list = articleMapper.getNotice(Maps.build().beanToMap(article));
-
-        return list;
+        return articleMapper.getNotice(Maps.build().beanToMap(article));
     }
 
 

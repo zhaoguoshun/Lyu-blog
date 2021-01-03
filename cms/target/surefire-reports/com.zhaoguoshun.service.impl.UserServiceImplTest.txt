@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.zhaoguoshun.service.impl.UserServiceImplTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.346 s - in com.zhaoguoshun.service.impl.UserServiceImplTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.962 s - in com.zhaoguoshun.service.impl.UserServiceImplTest

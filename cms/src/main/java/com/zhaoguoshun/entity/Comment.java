@@ -34,8 +34,6 @@ public class Comment extends Entity implements Serializable {
     @ApiModelProperty(value = "邮箱")
     private String email;
 
-    @ApiModelProperty(value = "IP")
-    private String ip;
 
     @ApiModelProperty(value = "创建时间")
     private Date createDate;
@@ -48,9 +46,6 @@ public class Comment extends Entity implements Serializable {
 
     @ApiModelProperty(value = "文章ID")
     private Integer articleId;
-
-    @ApiModelProperty(value = "父Id")
-    private Integer parentId;
 
     private String statusName;
 

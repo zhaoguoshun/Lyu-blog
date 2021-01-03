@@ -13,10 +13,8 @@
         <result column="seo_keyword"  property="seoKeyword"/>
         <result column="seo_description"  property="seoDescription"/>
         <result column="content"  property="content"/>
-        <result column="orderby"  property="orderby"/>
         <result column="create_date"  property="createDate"/>
         <result column="create_user"  property="createUser"/>
-        <result column="deleted_flag"  property="deletedFlag"/>
         <result column="pos"  property="pos"/>
     </resultMap>
 
@@ -27,12 +25,14 @@
         #{content},#{orderby},now(),#{createUser},#{deletedFlag},#{pos})
 	</insert>
 
+    <sql id="channelSql">
+        id,name,parent_id,channel_img,summary,single,create_user,create_date
+    </sql>
+
     <select id="query" resultMap="Channel">
-        select * from tb_channel
+        select <include refid="channelSql"/> from tb_channel
         <include refid="ChannelFindCriteria"/>
     </select>
-
-
 
     <select id="count" resultType="int">
         select count(1) from tb_channel
@@ -68,9 +68,7 @@
             <if test="seoKeyword != null and seoKeyword != ''">and seo_keyword = #{seoKeyword}</if>
             <if test="seoDescription != null and seoDescription != ''">and seo_description = #{seoDescription}</if>
             <if test="content != null and content != ''">and content = #{content}</if>
-            <if test="orderby != null">and orderby = #{orderby}</if>
             <if test="createUser != null">and create_user = #{createUser}</if>
-            <if test="deletedFlag != null and deletedFlag != ''">and deleted_flag = #{deletedFlag}</if>
             <if test="pos != null and pos != ''">and pos = #{pos}</if>
 
         </where>
@@ -87,10 +85,8 @@
             <if test="updateSeoKeyword != null and updateSeoKeyword != ''">seo_keyword = #{updateSeoKeyword},</if>
             <if test="updateSeoDescription != null and updateSeoDescription != ''">seo_description = #{updateSeoDescription},</if>
             <if test="updateContent != null and updateContent != ''">content = #{updateContent},</if>
-            <if test="updateOrderby != null">orderby = #{updateOrderby},</if>
             <if test="updateCreateDate != null">create_date = #{updateCreateDate},</if>
             <if test="updateCreateUser != null">create_user = #{updateCreateUser},</if>
-            <if test="updateDeletedFlag != null and updateDeletedFlag != ''">deleted_flag = #{updateDeletedFlag},</if>
             <if test="updatePos != null and updatePos != ''">pos = #{updatePos},</if>
         </set>
     </sql>

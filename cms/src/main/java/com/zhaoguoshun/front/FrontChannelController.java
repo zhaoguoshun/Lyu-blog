@@ -6,7 +6,6 @@ import com.zhaoguoshun.entity.Channel;
 import com.zhaoguoshun.service.impl.ArticleServiceImpl;
 import com.zhaoguoshun.service.impl.ChannelServiceImpl;
 import com.zhaoguoshun.utils.Result;
-import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +29,6 @@ public class FrontChannelController {
             return Result.fail();
         }
         Channel detail = channelService.detail(id);
-
         return Result.ok(detail);
     }
 
@@ -51,8 +49,6 @@ public class FrontChannelController {
 
     @GetMapping("/getChannelArticlePos")
     public Result getChannelArticlePos(Integer channelId){
-
-        System.out.println("channel==>"+channelId);
         List<Article> list = articleService.getChannelPos(channelId);
         return Result.ok(list);
     }
@@ -60,13 +56,10 @@ public class FrontChannelController {
 
     @GetMapping("/queryByPos")
     public Result getChannelByPos(String pos){
-
         if (StringUtils.isEmpty(pos)){
             return Result.fail();
         }
         List<Channel> channelPos = channelService.getChannelPos(pos.toUpperCase());
-
-        List<Channel> list = channelService.all();
         List<Map<String,Object>> mapList=new ArrayList<>();
         for (Channel channel : channelPos) {
             //首先获取顶级栏目

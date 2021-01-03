@@ -40,9 +40,6 @@ public class CommentController {
 
     @PostMapping("/update")
     public Result update(@RequestBody  Comment comment){
-
-        System.out.println("我是update");
-        System.out.println("comment====>"+comment);
         commentServiceImpl.update(comment);
         return Result.ok(comment);
     }
@@ -91,7 +88,6 @@ public class CommentController {
         return Result.ok(pageInfo);
     }
 
-
     /**
      * 审核通过
      */
@@ -102,7 +98,6 @@ public class CommentController {
         comment.setId(commentId);
         comment.setStatus(0);
         commentServiceImpl.update(comment);
-
         return Result.ok();
     }
 

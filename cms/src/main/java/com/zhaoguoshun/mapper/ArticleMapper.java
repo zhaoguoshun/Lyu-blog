@@ -26,11 +26,7 @@ public interface ArticleMapper extends BaseMapper<Article> {
     int delete(Map<String,Object> paraMap);
 
     int update(Map<String,Object> paraMap);
-
-    int updateView(Article article);
-
     List<Article> query(Map<String,Object> paramMap);
-    List<ArticleVo> voQuery(Map<String,Object> paramMap);
 
     List<Article> olderBy(Map<String,Object> paramMap);
 
@@ -39,12 +35,6 @@ public interface ArticleMapper extends BaseMapper<Article> {
     List<Article> getRandomArticle();
 
     List<Article> getNotice(Map<String,Object> paramMap);
-
-
-    public List<Article> queryByChannelId(Integer channelId);
     Article detail(Map<String,Object> paramMap);
-
-    List<Article> getTopArticle(Map<String,Object> paramMap);
-
     int count(Map<String,Object> paramMap);
 }

@@ -41,8 +41,6 @@ public class FriendLinkController {
     @PostMapping("/update")
     public Result update(@RequestBody  FriendLink friendLink){
 
-        System.out.println("我是update");
-        System.out.println("friendLink====>"+friendLink);
         friendLinkService.update(friendLink);
         return Result.ok(friendLink);
     }

@@ -1,10 +1,8 @@
 D:\2019_3代码\研真博客\cms\src\main\java\com\zhaoguoshun\entity\FriendLink.java
-D:\2019_3代码\研真博客\cms\src\main\java\com\zhaoguoshun\entity\ArticleView.java
+D:\2019_3代码\研真博客\cms\src\main\java\com\zhaoguoshun\utils\UserNullUtils.java
 D:\2019_3代码\研真博客\cms\src\main\java\com\zhaoguoshun\utils\Maps.java
 D:\2019_3代码\研真博客\cms\src\main\java\com\zhaoguoshun\mapper\CommentMapper.java
 D:\2019_3代码\研真博客\cms\src\main\java\com\zhaoguoshun\service\UserService.java
-D:\2019_3代码\研真博客\cms\src\main\java\com\zhaoguoshun\mapper\ArticleViewMapper.java
-D:\2019_3代码\研真博客\cms\src\main\java\com\zhaoguoshun\service\ArticleViewService.java
 D:\2019_3代码\研真博客\cms\src\main\java\com\zhaoguoshun\service\impl\ArticleTagServiceImpl.java
 D:\2019_3代码\研真博客\cms\src\main\java\com\zhaoguoshun\service\ArticleTagService.java
 D:\2019_3代码\研真博客\cms\src\main\java\com\zhaoguoshun\service\ArticleService.java
@@ -13,7 +11,6 @@ D:\2019_3代码\研真博客\cms\src\main\java\com\zhaoguoshun\service\FriendLin
 D:\2019_3代码\研真博客\cms\src\main\java\com\zhaoguoshun\controller\TagController.java
 D:\2019_3代码\研真博客\cms\src\main\java\com\zhaoguoshun\entity\Tag.java
 D:\2019_3代码\研真博客\cms\src\main\java\com\zhaoguoshun\controller\ArticleTagController.java
-D:\2019_3代码\研真博客\cms\src\main\java\com\zhaoguoshun\controller\ArticleViewController.java
 D:\2019_3代码\研真博客\cms\src\main\java\com\zhaoguoshun\mapper\ChannelMapper.java
 D:\2019_3代码\研真博客\cms\src\main\java\com\zhaoguoshun\service\impl\UserServiceImpl.java
 D:\2019_3代码\研真博客\cms\src\main\java\com\zhaoguoshun\service\ArticleAttachmentService.java
@@ -34,7 +31,6 @@ D:\2019_3代码\研真博客\cms\src\main\java\com\zhaoguoshun\vo\ArticleVo.java
 D:\2019_3代码\研真博客\cms\src\main\java\com\zhaoguoshun\entity\User.java
 D:\2019_3代码\研真博客\cms\src\main\java\com\zhaoguoshun\utils\RequestUtils.java
 D:\2019_3代码\研真博客\cms\src\main\java\com\zhaoguoshun\controller\ChannelController.java
-D:\2019_3代码\研真博客\cms\src\main\java\com\zhaoguoshun\service\impl\ArticleViewServiceImpl.java
 D:\2019_3代码\研真博客\cms\src\main\java\com\zhaoguoshun\utils\Result.java
 D:\2019_3代码\研真博客\cms\src\main\java\com\zhaoguoshun\utils\Entity.java
 D:\2019_3代码\研真博客\cms\src\main\java\com\zhaoguoshun\CmsApplication.java

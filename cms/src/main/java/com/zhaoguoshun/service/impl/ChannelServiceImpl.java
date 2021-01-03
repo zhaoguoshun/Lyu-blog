@@ -2,17 +2,11 @@ package com.zhaoguoshun.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.zhaoguoshun.entity.Article;
-import com.zhaoguoshun.entity.Channel;
 import com.zhaoguoshun.entity.Channel;
 import com.zhaoguoshun.entity.User;
-import com.zhaoguoshun.mapper.ArticleMapper;
 import com.zhaoguoshun.mapper.ChannelMapper;
-import com.zhaoguoshun.mapper.ChannelMapper;
-import com.zhaoguoshun.mapper.UserMapper;
 import com.zhaoguoshun.service.ChannelService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zhaoguoshun.service.UserService;
 import com.zhaoguoshun.utils.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,9 +30,6 @@ public class ChannelServiceImpl extends ServiceImpl<ChannelMapper, Channel> impl
     @Autowired
     private UserServiceImpl userService;
 
-    @Autowired
-    private ArticleServiceImpl articleService;
-
 
     public int create(Channel channel){
         return channelMapper.create(channel);
@@ -48,12 +39,7 @@ public class ChannelServiceImpl extends ServiceImpl<ChannelMapper, Channel> impl
         return channelMapper.delete(Maps.build(id).getMap());
     }
 
-    public int update(Channel channel){
-        System.out.println(channel);
-
-        System.out.println(Maps.build().beanToMap(channel));
-        return channelMapper.update(Maps.build(channel.getId()).beanToMapForUpdate(channel));
-    }
+    public int update(Channel channel){ return channelMapper.update(Maps.build(channel.getId()).beanToMapForUpdate(channel)); }
 
     public PageInfo<Channel> query(Channel channel){
         if (channel!=null && channel.getPage() != null){
@@ -63,7 +49,9 @@ public class ChannelServiceImpl extends ServiceImpl<ChannelMapper, Channel> impl
         for (int i=0; i<list.size();i++){
             if (list.get(i).getCreateUser()!=null){
                 User user = userService.detail(list.get(i).getCreateUser());
-                list.get(i).setUserName(user.getNickName());
+                if(user!=null){
+                    list.get(i).setUserName(user.getNickName());
+                }
             }
             String single = list.get(i).getSingle();
             String pos = list.get(i).getPos();
@@ -87,7 +75,7 @@ public class ChannelServiceImpl extends ServiceImpl<ChannelMapper, Channel> impl
                 }
             }
         }
-        return new PageInfo<Channel> (list);
+        return new PageInfo<> (list);
     }
 
 
@@ -99,29 +87,23 @@ public class ChannelServiceImpl extends ServiceImpl<ChannelMapper, Channel> impl
         for (int i=0; i<list.size();i++){
             if (list.get(i).getCreateUser()!=null){
                 User user = userService.detail(list.get(i).getCreateUser());
-                System.out.println("现在打印一下user"+user.getNickName());
-                list.get(i).setUserName(user.getNickName());
+                if (user!=null){
+                    list.get(i).setUserName(user.getNickName());
+                }
             }
         }
-        return new PageInfo<Channel> (list);
+        return new PageInfo<> (list);
     }
 
-
-
     public List<Channel> getChannelPos(String  pos){
-        List<Channel> list = channelMapper.query(Maps.build().put("pos", pos).getMap());
-
-        return list;
+        return channelMapper.query(Maps.build().put("pos", pos).getMap());
     }
 
     public List<Channel> all(){
-        List<Channel> list = channelMapper.query(Maps.build().getMap());
-        return list;
+        return channelMapper.query(Maps.build().getMap());
     }
 
-
     public Channel detail(Integer id){
-        //查找发布人
         return channelMapper.detail(Maps.build(id).getMap());
     }
 

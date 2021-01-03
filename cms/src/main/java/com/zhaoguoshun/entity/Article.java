@@ -68,10 +68,6 @@ public class Article extends Entity implements Serializable  {
 
     @ApiModelProperty(value = "0/null不置顶，1置顶")
     private Integer top;
-
-    @ApiModelProperty(value = "排序")
-    private Integer orderby;
-
     @ApiModelProperty(value = "创建时间")
     private Date createDate;
 
@@ -97,10 +93,4 @@ public class Article extends Entity implements Serializable  {
     private Integer articleView;
 
     private Boolean front;
-
-    //上一条
-    private ArticleVo frontArticle;
-
-    //下一条
-    private ArticleVo nextArticle;
 }

@@ -2,7 +2,6 @@ package com.zhaoguoshun.mapper;
 
 import com.zhaoguoshun.entity.ArticleTag;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.zhaoguoshun.entity.ArticleTag;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 

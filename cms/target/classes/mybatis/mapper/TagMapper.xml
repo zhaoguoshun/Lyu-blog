@@ -38,12 +38,12 @@
     </update>
 
     <select id="query" resultMap="Tag">
-        select  * from tb_tag
+        select  id,tag_name from tb_tag
         <include refid="TagFindCriteria"/>
     </select>
 
     <select id="detail" resultMap="Tag">
-        select * from tb_tag
+        select id,tag_name from tb_tag
         <include refid="TagFindCriteria"></include>
         limit 1
     </select>

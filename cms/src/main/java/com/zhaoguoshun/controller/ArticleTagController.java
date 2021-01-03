@@ -43,16 +43,12 @@ public class ArticleTagController {
 
     @PostMapping("/update")
     public Result update(@RequestBody  ArticleTag articleTag){
-
-        System.out.println("我是update");
-        System.out.println("articleTag====>"+articleTag);
         articleTagService.update(articleTag);
         return Result.ok(articleTag);
     }
     @PostMapping("/query")
     public Map query(@RequestBody ArticleTag articleTag){
         PageInfo<ArticleTag> pageInfo = articleTagService.query(articleTag);
-        System.out.println(pageInfo.getList());
         return Result.ok(pageInfo);
     }
 

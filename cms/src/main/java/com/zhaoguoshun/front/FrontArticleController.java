@@ -43,9 +43,7 @@ public class FrontArticleController {
 
     @GetMapping("/getByChannelId")
     public Map getByIdChannel(Article article,Integer page){
-        System.out.println("article===??>"+article);
-        PageInfo<Article> query = articleService.getPage(article,page);
-        return Result.ok(query);
+        return Result.ok(articleService.getPage(article,page));
     }
     /**
      * 点击排行
@@ -53,8 +51,7 @@ public class FrontArticleController {
      */
     @GetMapping("/getOlderByArticle")
     public Result getOlderArticle(){
-        List<Article> articles = articleService.orderBy();
-        return Result.ok(articles);
+        return Result.ok(articleService.orderBy());
     }
 
     @GetMapping("/getNotice")
@@ -71,20 +68,17 @@ public class FrontArticleController {
      */
     @GetMapping("/page")
     public Map pageArticleList(Integer number,Article article){
-        PageInfo<Article> query = articleService.getPage(article,number);
-        return Result.ok(query);
+        return Result.ok(articleService.getPage(article,number));
     }
 
     @GetMapping("/getTop")
     public Result getById(Article article,Integer top){
-        List<Article> list = articleService.top(article, top);
-        return Result.ok(list);
+        return Result.ok(articleService.top(article, top));
     }
 
     @GetMapping("/Top")
     public Result getById(){
-        List<Article> list = articleService.top();
-        return Result.ok(list);
+        return Result.ok(articleService.top());
     }
 
     /**
@@ -97,8 +91,7 @@ public class FrontArticleController {
         Comment comment = new Comment();
         comment.setArticleId(articleId);
         comment.setStatus(0);
-        List<Comment> list = commentService.getCommentArticle(comment);
-        return Result.ok(list);
+        return Result.ok( commentService.getCommentArticle(comment));
     }
 
     //查询出随机的两条数据
@@ -111,7 +104,6 @@ public class FrontArticleController {
     @PostMapping("/search")
     public Map search(@RequestBody Article article){
         PageInfo<Article> pageInfo = articleService.query(article);
-        System.out.println(pageInfo.getList());
         return Result.ok(pageInfo);
     }
 

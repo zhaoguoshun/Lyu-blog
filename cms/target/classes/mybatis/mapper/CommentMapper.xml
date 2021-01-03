@@ -5,40 +5,38 @@
         <id column="id" property="id"/>
         <result column="author"  property="author"/>
         <result column="email"  property="email"/>
-        <result column="ip"  property="ip"/>
         <result column="create_date"  property="createDate"/>
         <result column="content"  property="content"/>
         <result column="status"  property="status"/>
         <result column="article_id"  property="articleId"/>
-        <result column="parent_id"  property="parentId"/>
     </resultMap>
+
+    <sql id="commentSql">
+        id,author,email,create_date,content,status,article_id
+    </sql>
 
     <insert id="create" keyProperty="id" useGeneratedKeys="true" parameterType="Comment">
 		insert into tb_comment(
 			id,
 			author,
 			email,
-			ip,
 			create_date,
 			content,
 			status,
 			article_id,
-			parent_id
 		)values(
 			#{id},
 			#{author},
 			#{email},
-			#{ip},
 			now(),
 			#{content},
 			#{status},
 			#{articleId},
-			#{parentId}
 		)
 	</insert>
 
     <select id="query" resultMap="Comment">
-        select * from tb_comment
+        select <include refid="commentSql"/> from tb_comment
         <include refid="CommentFindCriteria"/>
         order by id desc
     </select>
@@ -49,7 +47,7 @@
     </select>
 
     <select id="detail" resultMap="Comment">
-        select * from tb_comment
+        select <include refid="commentSql"/> from tb_comment
         <include refid="CommentFindCriteria"/>
         limit 1
     </select>
@@ -69,11 +67,9 @@
             <if test="id != null">and ID = #{id}</if>
             <if test="author != null and author != ''">and author = #{author}</if>
             <if test="email != null and email != ''">and email = #{email}</if>
-            <if test="ip != null and ip != ''">and ip = #{ip}</if>
             <if test="content != null and content != ''">and content like concat('%',#{content},'%')</if>
             <if test="status != null">and status = #{status}</if>
             <if test="articleId != null">and article_id = #{articleId}</if>
-            <if test="parentId != null">and parent_id = #{parentId}</if>
         </where>
     </sql>
     <sql id="CommentUpdateCriteria">
@@ -81,12 +77,10 @@
             <if test="updateId != null">ID = #{updateId},</if>
             <if test="updateAuthor != null and updateAuthor != ''">author = #{updateAuthor},</if>
             <if test="updateEmail != null and updateEmail != ''">email = #{updateEmail},</if>
-            <if test="updateIp != null and updateIp != ''">ip = #{updateIp},</if>
             <if test="updateCreateDate != null">create_date = #{updateCreateDate},</if>
             <if test="updateContent != null and updateContent != ''">content = #{updateContent},</if>
             <if test="updateStatus != null">status = #{updateStatus},</if>
             <if test="updateArticleId != null">article_id = #{updateArticleId},</if>
-            <if test="updateParentId != null">parent_id = #{updateParentId},</if>
         </set>
     </sql>
 </mapper>

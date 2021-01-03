@@ -36,7 +36,6 @@ public class FriendLink extends Entity implements Serializable {
 
     private String title;
 
-    private String path;
 
     private String target;
 

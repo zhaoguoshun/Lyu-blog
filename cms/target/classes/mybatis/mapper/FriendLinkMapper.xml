@@ -6,7 +6,6 @@
         <id column="id" property="id"/>
         <result column="url"  property="url"/>
         <result column="title"  property="title"/>
-        <result column="path"  property="path"/>
         <result column="target"  property="target"/>
     </resultMap>
 
@@ -14,18 +13,16 @@
 		insert into tb_friend_link(
 			url,
 			title,
-			path,
 			target
 		)values(
 			#{url},
 			#{title},
-			#{path},
 			#{target}
 		)
 	</insert>
 
     <select id="query" resultMap="FriendLink">
-        select * from tb_friend_link
+        select id,url,title,target from tb_friend_link
         <include refid="FriendLinkFindCriteria"/>
     </select>
 
@@ -35,7 +32,7 @@
     </select>
 
     <select id="detail" resultMap="FriendLink">
-        select * from tb_friend_link
+        select id,url,title,target from tb_friend_link
         <include refid="FriendLinkFindCriteria"/>
         limit 1
     </select>
@@ -55,7 +52,6 @@
             <if test="id != null">and id = #{id}</if>
             <if test="url != null and url != ''">and url = #{url}</if>
             <if test="title != null and title != ''">and title like concat('%',#{title},'%')</if>
-            <if test="path != null and path != ''">and path = #{path}</if>
             <if test="target != null and target != ''">and target = #{target}</if>
         </where>
     </sql>
@@ -63,7 +59,6 @@
         <set>
             <if test="updateUrl != null and updateUrl != ''">url = #{updateUrl},</if>
             <if test="updateTitle != null and updateTitle != ''">title = #{updateTitle},</if>
-            <if test="updatePath != null and updatePath != ''">path = #{updatePath},</if>
             <if test="updateTarget != null and updateTarget != ''">target = #{updateTarget},</if>
         </set>
     </sql>

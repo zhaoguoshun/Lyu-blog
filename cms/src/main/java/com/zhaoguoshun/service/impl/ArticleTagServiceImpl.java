@@ -50,9 +50,6 @@ public class ArticleTagServiceImpl extends ServiceImpl<ArticleTagMapper, Article
     }
 
     public int update(ArticleTag articleTag){
-        System.out.println(articleTag);
-
-        System.out.println(Maps.build().beanToMap(articleTag));
         return articleTagMapper.update(Maps.build(articleTag.getId()).beanToMapForUpdate(articleTag));
     }
 
@@ -61,7 +58,7 @@ public class ArticleTagServiceImpl extends ServiceImpl<ArticleTagMapper, Article
             PageHelper.startPage(articleTag.getPage(),articleTag.getLimit());
         }
         List<ArticleTag> list = articleTagMapper.query(Maps.build().beanToMap(articleTag));
-        return new PageInfo<ArticleTag> (list);
+        return new PageInfo<> (list);
     }
 
     public PageInfo<ArticleTag> getArticleId(ArticleTag articleTag){
@@ -74,11 +71,13 @@ public class ArticleTagServiceImpl extends ServiceImpl<ArticleTagMapper, Article
             Article article = articleMapper.detail(Maps.build(list.get(i).getArticleId()).getMap());
             User user = userMapper.detail(Maps.build(article.getCreateUser()).getMap());
             Channel channel = channelMapper.detail(Maps.build(article.getChannelId()).getMap());
-            article.setUser(user);
+            if (user!=null){
+                article.setUser(user);
+            }
             article.setChannel(channel);
             list.get(i).setArticle(article);
         }
-        return new PageInfo<ArticleTag> (list);
+        return new PageInfo<> (list);
     }
 
     public ArticleTag detail(Integer id){

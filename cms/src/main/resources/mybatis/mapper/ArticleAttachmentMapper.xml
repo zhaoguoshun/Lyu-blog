@@ -6,21 +6,15 @@
         <id column="id" property="id"/>
         <result column="article_id"  property="articleId"/>
         <result column="url"  property="url"/>
-        <result column="description"  property="description"/>
-        <result column="suffix"  property="suffix"/>
     </resultMap>
 
     <insert id="create" keyProperty="id" useGeneratedKeys="true" parameterType="ArticleAttachment">
 		insert into tb_article_attachment(
 			article_id,
 			url,
-			description,
-			suffix
 		)values(
 			#{articleId},
 			#{url},
-			#{description},
-			#{suffix}
 		)
 	</insert>
 
@@ -55,16 +49,12 @@
             <if test="id != null">and id = #{id}</if>
             <if test="articleId != null">and article_id = #{articleId}</if>
             <if test="url != null and url != ''">and url = #{url}</if>
-            <if test="description != null and description != ''">and description = #{description}</if>
-            <if test="suffix != null and suffix != ''">and suffix = #{suffix}</if>
         </where>
     </sql>
     <sql id="ArticleAttachmentUpdateCriteria">
         <set>
             <if test="updateArticleId != null">article_id = #{updateArticleId},</if>
             <if test="updateUrl != null and updateUrl != ''">url = #{updateUrl},</if>
-            <if test="updateDescription != null and updateDescription != ''">description = #{updateDescription},</if>
-            <if test="updateSuffix != null and updateSuffix != ''">suffix = #{updateSuffix},</if>
         </set>
     </sql>
 

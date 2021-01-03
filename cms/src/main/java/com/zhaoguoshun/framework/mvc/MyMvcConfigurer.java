@@ -29,7 +29,7 @@ public class MyMvcConfigurer implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/upload/**").addResourceLocations("file:/upload/cms/");// 这里要写你的文件存储的路径
+        registry.addResourceHandler("/upload/**").addResourceLocations("file:d:/upload/cms/");// 这里要写你的文件存储的路径
         registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
     }
 
