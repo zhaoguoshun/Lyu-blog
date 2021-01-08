@@ -42,10 +42,10 @@ public class TagController {
     }
 
 
-    @PostMapping("/all")
-    public Result all(Tag tag){
-        return Result.ok(tagServiceImpl.all()) ;
-    }
+//    @PostMapping("/all")
+//    public Result all(Tag tag){
+//        return Result.ok(tagServiceImpl.all()) ;
+//    }
 
 
     @PostMapping("/detail")

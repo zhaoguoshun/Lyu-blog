@@ -17,16 +17,15 @@
         <result column="create_user"  property="createUser"/>
         <result column="pos"  property="pos"/>
     </resultMap>
-
     <insert id="create" keyProperty="id" useGeneratedKeys="true" parameterType="Channel">
 
-        insert into tb_channel (name,parent_id,channel_img,summary,single,url,seo_title,seo_keyword,seo_description,content,orderby,create_date,create_user,deleted_flag,pos)
+        insert into tb_channel (name,parent_id,channel_img,summary,single,url,seo_title,seo_keyword,seo_description,content,create_date,create_user,pos)
         values (#{name},#{parentId},#{channelImg},#{summary},#{single},#{url},#{seoTitle},#{seoKeyword},#{seoDescription},
-        #{content},#{orderby},now(),#{createUser},#{deletedFlag},#{pos})
+        #{content},now(),#{createUser},#{pos})
 	</insert>
 
     <sql id="channelSql">
-        id,name,parent_id,channel_img,summary,single,create_user,create_date
+        id,name,parent_id,channel_img,summary,content,single,create_user,create_date
     </sql>
 
     <select id="query" resultMap="Channel">
@@ -40,7 +39,7 @@
     </select>
 
     <select id="detail" resultMap="Channel">
-        select * from tb_channel
+        select <include refid="channelSql"/> from tb_channel
         <include refid="ChannelFindCriteria"/>
         limit 1
     </select>

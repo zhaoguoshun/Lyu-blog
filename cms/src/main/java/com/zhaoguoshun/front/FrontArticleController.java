@@ -3,9 +3,13 @@ package com.zhaoguoshun.front;
 
 import com.github.pagehelper.PageInfo;
 import com.zhaoguoshun.entity.Article;
+import com.zhaoguoshun.entity.ArticleTag;
 import com.zhaoguoshun.entity.Comment;
+import com.zhaoguoshun.entity.Tag;
 import com.zhaoguoshun.service.impl.ArticleServiceImpl;
+import com.zhaoguoshun.service.impl.ArticleTagServiceImpl;
 import com.zhaoguoshun.service.impl.CommentServiceImpl;
+import com.zhaoguoshun.service.impl.TagServiceImpl;
 import com.zhaoguoshun.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +26,12 @@ public class FrontArticleController {
 
     @Autowired
     private CommentServiceImpl commentService;
+
+    @Autowired
+    private ArticleTagServiceImpl articleTagService;
+
+    @Autowired
+    private TagServiceImpl tagService;
     @GetMapping("/get")
     public Result getById(Integer id){
         Article article = new Article();
@@ -42,8 +52,8 @@ public class FrontArticleController {
 
 
     @GetMapping("/getByChannelId")
-    public Map getByIdChannel(Article article,Integer page){
-        return Result.ok(articleService.getPage(article,page));
+    public Map getByIdChannel(Integer page){
+        return Result.ok(articleService.getPage(null,page));
     }
     /**
      * 点击排行
@@ -67,8 +77,8 @@ public class FrontArticleController {
      * @return
      */
     @GetMapping("/page")
-    public Map pageArticleList(Integer number,Article article){
-        return Result.ok(articleService.getPage(article,number));
+    public Map pageArticleList(Integer number){
+        return Result.ok(articleService.getPage(null,number));
     }
 
     @GetMapping("/getTop")
@@ -105,6 +115,18 @@ public class FrontArticleController {
     public Map search(@RequestBody Article article){
         PageInfo<Article> pageInfo = articleService.query(article);
         return Result.ok(pageInfo);
+    }
+
+    @PostMapping("/getArticleTag")
+    public Map getArticleTag(@RequestBody ArticleTag articleTag){
+        PageInfo<ArticleTag> pageInfo = articleTagService.getArticleId(articleTag);
+        return Result.ok(pageInfo);
+    }
+
+    //标签云
+    @PostMapping("/all")
+    public Result all(Tag tag){
+        return Result.ok(tagService.all()) ;
     }
 
 

@@ -33,7 +33,6 @@ CREATE TABLE `tb_article`  (
   `comment_status` int(1) NULL DEFAULT NULL COMMENT '0/Null允许评论，不允许评论',
   `rotation` int(1) NULL DEFAULT NULL COMMENT '0/NULL非轮播 1 轮播',
   `top` int(1) NULL DEFAULT NULL COMMENT '0/null不置顶，1置顶',
-  `orderby` int(11) NULL DEFAULT NULL COMMENT '排序',
   `create_date` date NULL DEFAULT NULL COMMENT '创建时间',
   `create_user` int(11) NULL DEFAULT NULL COMMENT '创建人',
   `update_date` date NULL DEFAULT NULL,

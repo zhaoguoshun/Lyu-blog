@@ -117,14 +117,14 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     }
 
     public List<Article> orderBy(){
-        return  articleMapper.olderBy(Maps.build().beanToMap(new Article()));
+        return  articleMapper.olderBy(Maps.build().beanToMap(null));
     }
 
 
     public List<Article> getChannelPos(Integer id){
         Article article = new Article();
         article.setChannelId(id);
-        List<Article> list = articleMapper.ArticlePosQuery(Maps.build().beanToMap(article));
+        List<Article> list = articleMapper.ArticlePosQuery(Maps.build().put("channelId",id).getMap());
         for (Article article1 : list) {
             User user = userMapper.detail(Maps.build(article1.getCreateUser()).getMap());
             if (user!=null){
@@ -190,6 +190,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
             User user = userMapper.detail(Maps.build(article.getCreateUser()).getMap());
             if (user!=null){
                 article.setUser(user);
+            }else {
+                article.setUser(UserNullUtils.userIsNull());
             }
         }
         //查询标签信息
@@ -207,8 +209,11 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
             map.put("url",entity.getUrl());
             articleAttachmentList.add(map);
         });
-        article.setSelectTagList(tags);
-        article.setArticleAttachments(articleAttachmentList);
+
+
+            article.setSelectTagList(tags);
+            article.setArticleAttachments(articleAttachmentList);
+
 
         //增加视图
         if (a.getFront()){

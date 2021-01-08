@@ -49,8 +49,7 @@ public class FrontChannelController {
 
     @GetMapping("/getChannelArticlePos")
     public Result getChannelArticlePos(Integer channelId){
-        List<Article> list = articleService.getChannelPos(channelId);
-        return Result.ok(list);
+        return Result.ok(articleService.getChannelPos(channelId));
     }
 
 

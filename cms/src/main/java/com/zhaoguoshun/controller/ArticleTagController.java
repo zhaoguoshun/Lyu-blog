@@ -52,13 +52,7 @@ public class ArticleTagController {
         return Result.ok(pageInfo);
     }
 
-    @PostMapping("/getArticleTag")
-    public Map getArticleTag(@RequestBody ArticleTag articleTag){
-        System.out.println("进来进来");
-        PageInfo<ArticleTag> pageInfo = articleTagService.getArticleId(articleTag);
-        System.out.println(pageInfo.getList());
-        return Result.ok(pageInfo);
-    }
+
 
     @PostMapping("/detail")
     public Result detail(Integer id){

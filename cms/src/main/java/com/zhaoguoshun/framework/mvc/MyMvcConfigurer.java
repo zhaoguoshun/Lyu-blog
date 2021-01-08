@@ -24,7 +24,7 @@ public class MyMvcConfigurer implements WebMvcConfigurer {
                 .excludePathPatterns("/login",
                         "static/**",
                         "/upload/**",
-                        "/front/**","/comment/**","/friendLink/**","/tag/**","/cms/upload/**");
+                        "/front/**","/friendLink/**","/cms/upload/**");
     }
 
     @Override

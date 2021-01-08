@@ -13,6 +13,7 @@ import com.zhaoguoshun.mapper.UserMapper;
 import com.zhaoguoshun.service.ArticleTagService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhaoguoshun.utils.Maps;
+import com.zhaoguoshun.utils.UserNullUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -63,7 +64,7 @@ public class ArticleTagServiceImpl extends ServiceImpl<ArticleTagMapper, Article
 
     public PageInfo<ArticleTag> getArticleId(ArticleTag articleTag){
         if (articleTag!=null && articleTag.getPage() != null){
-            PageHelper.startPage(articleTag.getPage(),articleTag.getLimit());
+            PageHelper.startPage(articleTag.getPage(),8);
         }
         List<ArticleTag> list = articleTagMapper.query(Maps.build(articleTag.getTagId()).beanToMap(articleTag));
 
@@ -73,6 +74,8 @@ public class ArticleTagServiceImpl extends ServiceImpl<ArticleTagMapper, Article
             Channel channel = channelMapper.detail(Maps.build(article.getChannelId()).getMap());
             if (user!=null){
                 article.setUser(user);
+            }else {
+                article.setUser(UserNullUtils.userIsNull());
             }
             article.setChannel(channel);
             list.get(i).setArticle(article);
@@ -88,3 +91,5 @@ public class ArticleTagServiceImpl extends ServiceImpl<ArticleTagMapper, Article
         return articleTagMapper.count(Maps.build().beanToMap(articleTag));
     }
 }
+
+

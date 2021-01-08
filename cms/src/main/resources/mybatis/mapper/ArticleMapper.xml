@@ -13,7 +13,6 @@
         <result column="comment_status"  property="commentStatus"/>
         <result column="rotation"  property="rotation"/>
         <result column="top"  property="top"/>
-        <result column="orderby"  property="orderby"/>
         <result column="create_date"  property="createDate"/>
         <result column="create_user"  property="createUser"/>
         <result column="update_date"  property="updateDate"/>
@@ -21,7 +20,7 @@
     </resultMap>
 
     <sql id="articleSql">
-        id,channel_id,title,title_img,summary,content,create_date,create_user,article_view
+        id,channel_id,title,title_img,summary,content,comment_status,create_date,top,create_user,article_view
     </sql>
 
     <insert id="create" keyProperty="id" useGeneratedKeys="true" parameterType="Article">
@@ -36,7 +35,6 @@
 			comment_status,
 			rotation,
 			top,
-			orderby,
 			create_date,
 			create_user,
 			update_date,
@@ -52,7 +50,6 @@
 			#{commentStatus},
 			#{rotation},
 			#{top},
-			#{orderby},
 			now(),
 			#{createUser},
 			now(),
@@ -61,10 +58,10 @@
 	</insert>
 
     <select id="query" resultMap="Article">
-    select <include refid="articleSql"/> from tb_article
-    <include refid="ArticleFindCriteria"/>
-    order by id desc
-</select>
+        select <include refid="articleSql"/> from tb_article
+        <include refid="ArticleFindCriteria"/>
+        order by id desc
+    </select>
 
 
     <select id="olderBy" resultMap="Article">
@@ -127,7 +124,6 @@
             <if test="commentStatus != null">and comment_status = #{commentStatus}</if>
             <if test="rotation != null">and rotation = #{rotation}</if>
             <if test="top != null">and top = #{top}</if>
-            <if test="orderby != null">and orderby = #{orderby}</if>
             <if test="createUser != null">and create_user = #{createUser}</if>
         </where>
     </sql>
@@ -143,7 +139,6 @@
             <if test="updateCommentStatus != null">comment_status = #{updateCommentStatus},</if>
             <if test="updateRotation != null">rotation = #{updateRotation},</if>
             <if test="updateTop != null">top = #{updateTop},</if>
-            <if test="updateOrderby != null">orderby = #{updateOrderby},</if>
             <if test="updateCreateDate != null">create_date = #{updateCreateDate},</if>
             <if test="updateCreateUser != null">create_user = #{updateCreateUser},</if>
             <if test="updateUpdateDate != null">update_date = #{updateUpdateDate},</if>
