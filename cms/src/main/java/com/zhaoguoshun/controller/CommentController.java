@@ -26,12 +26,6 @@ public class CommentController {
     @Autowired
     private CommentServiceImpl commentServiceImpl;
 
-    @PostMapping("/create")
-    public Result create(@RequestBody Comment comment){
-        commentServiceImpl.create(comment);
-        return Result.ok("评论成功,待管理员审核",comment);
-    }
-
     @PostMapping("/delete")
     public Result delete(Integer id){
         commentServiceImpl.delete(id);

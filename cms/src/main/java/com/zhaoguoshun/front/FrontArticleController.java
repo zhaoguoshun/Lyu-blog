@@ -90,6 +90,16 @@ public class FrontArticleController {
     public Result getById(){
         return Result.ok(articleService.top());
     }
+	
+	/**
+     * 插入评论
+     */
+    @PostMapping("/create")
+    public Result create(@RequestBody Comment comment){
+        commentService.create(comment);
+        return Result.ok("评论成功,待管理员审核",comment);
+    }
+
 
     /**
      * 查询文章评论
